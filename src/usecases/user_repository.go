@@ -9,7 +9,7 @@ type UserRepository struct {
 	infrastructure.SqlHandler
 }
 
-func (obj *UserRepository) Store(u *domain.User) {
+func (obj *UserRepository) Store(u interface{}) {
 	obj.Create(u)
 }
 
