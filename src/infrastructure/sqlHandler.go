@@ -27,11 +27,7 @@ func (handler *SqlHandler) Create(obj interface{}) {
 	handler.db.Create(&obj)
 }
 
-func (handler *SqlHandler) FindById(obj interface{}) {
-	handler.db.Find(&obj)
-}
-
-func (handler *SqlHandler) FindAll(obj []interface{}) {
+func (handler *SqlHandler) Find(obj []interface{}) {
 	handler.db.Create(&obj)
 }
 

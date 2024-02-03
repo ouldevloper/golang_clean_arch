@@ -1,6 +1,10 @@
 package infrastructure
 
-import "github.com/gin-gonic/gin"
+import (
+	"log"
+
+	"github.com/gin-gonic/gin"
+)
 
 func Init() {
 	r := gin.Default()
@@ -10,7 +14,13 @@ func Init() {
 		})
 	})
 
-	r.GET("/find", func(cntx *gin.Context) {
+	r.GET("/users", func(cntx *gin.Context) {
+		cntx.JSON(200, gin.H{
+			"message": "desfsd",
+		})
+	})
+
+	r.GET("/user/:id", func(cntx *gin.Context) {
 		cntx.JSON(200, gin.H{
 			"message": "desfsd",
 		})
@@ -27,4 +37,6 @@ func Init() {
 			"message": "desfsd",
 		})
 	})
+
+	log.Fatal(r.Run(":3001"))
 }
