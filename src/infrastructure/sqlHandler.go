@@ -23,6 +23,18 @@ func NewSqlHandler() *gorm.DB {
 	return db
 }
 
-func (handler *SqlHandler) Create(data interface{}) {
+func (handler *SqlHandler) Create(obj interface{}) {
+	handler.db.Create(&obj)
+}
 
+func (handler *SqlHandler) FindById(obj interface{}) {
+	handler.db.Find(&obj)
+}
+
+func (handler *SqlHandler) FindAll(obj []interface{}) {
+	handler.db.Create(&obj)
+}
+
+func (handler *SqlHandler) Delete(obj interface{}, id string) {
+	handler.db.Delete(&obj, id)
 }
