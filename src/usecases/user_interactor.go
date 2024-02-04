@@ -11,5 +11,6 @@ func (obj *UserInteractor) Add(u interface{}) {
 }
 
 func (obj *UserInteractor) GetInfo() []domain.User {
-
+	users := []domain.User{}
+	obj.repository.Select(&users)
 }

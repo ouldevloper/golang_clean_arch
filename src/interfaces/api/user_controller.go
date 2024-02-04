@@ -21,7 +21,7 @@ func NewUserController(Sqlhandler database.SqlHandler) *UserController {
 }
 
 func (obj *UserController) GetUser() []domain.User {
-	res := obj.Interactor.GetInfo()
+	res := obj.Interactor.
 	return res
 }
 

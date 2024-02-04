@@ -2,26 +2,26 @@ package usecases
 
 import (
 	"go_clean/src/domain"
-	"go_clean/src/infrastructure"
+	"go_clean/src/interfaces/database"
 )
 
 type UserRepository struct {
-	infrastructure.SqlHandler
+	database.SqlHandler
 }
 
-func (obj *UserRepository) Store(u interface{}) {
+func (obj *UserRepository) Store(u interface{}) interface{} {
 	obj.Create(u)
+	return u
 }
 
-
-func (obj *UserRepository)Select()[]domain.User{
-	users:=[]domain.User
-	obj.FindAll(&users)
+func (obj *UserRepository) Select() []domain.User {
+	users := []domain.User{}
+	obj.Find(&users)
 	return users
 }
 
-
-func (obj*UserRepository) Delete(id int){
-	userv:= []domain.User{}
-	obj.Delete(&user,id)
+func (obj *UserRepository) DeleteUser(id int) []domain.User {
+	user := []domain.User{}
+	obj.Delete(&user, id)
+	return user
 }
