@@ -1,7 +1,7 @@
 package infrastructure
 
 import (
-	"log"
+	"go_clean/src/interfaces/database"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -11,26 +11,25 @@ type SqlHandler struct {
 	db *gorm.DB
 }
 
-func NewSqlHandler() *gorm.DB {
-	dsn := "go_clean:user@tcp(127.0.0.1:3306)/go_clean?charset=utf8mb4&parseTime=True&loc=Local"
+func NewSqlHandler() database.SqlHandler {
+	dsn := "root:password@tcp(127.0.0.1:3306)/go_sample?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Could Not Connect to db")
+		panic(err.Error)
 	}
-
-	sh := new(SqlHandler)
-	sh.db = db
-	return db
+	sqlHandler := new(SqlHandler)
+	sqlHandler.db = db
+	return sqlHandler
 }
 
 func (handler *SqlHandler) Create(obj interface{}) {
-	handler.db.Create(&obj)
+	handler.db.Create(obj)
 }
 
-func (handler *SqlHandler) Find(obj []interface{}) {
-	handler.db.Create(&obj)
+func (handler *SqlHandler) FindAll(obj interface{}) {
+	handler.db.Find(obj)
 }
 
-func (handler *SqlHandler) Delete(obj interface{}, id string) {
-	handler.db.Delete(&obj, id)
+func (handler *SqlHandler) DeleteById(obj interface{}, id string) {
+	handler.db.Delete(obj, id)
 }

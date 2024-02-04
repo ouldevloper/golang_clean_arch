@@ -1,16 +1,19 @@
-package usecases
+package usecase
 
 import "go_clean/src/domain"
 
 type UserInteractor struct {
-	repository *UserRepository
+	UserRepository UserRepository
 }
 
-func (obj *UserInteractor) Add(u interface{}) {
-	obj.repository.Store(u)
+func (interactor *UserInteractor) Add(u domain.User) {
+	interactor.UserRepository.Store(u)
 }
 
-func (obj *UserInteractor) GetInfo() []domain.User {
-	users := []domain.User{}
-	obj.repository.Select(&users)
+func (interactor *UserInteractor) GetInfo() []domain.User {
+	return interactor.UserRepository.Select()
+}
+
+func (interactor *UserInteractor) Delete(id string) {
+	interactor.UserRepository.Delete(id)
 }

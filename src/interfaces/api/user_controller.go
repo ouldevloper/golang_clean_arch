@@ -1,34 +1,41 @@
-package api
+package controllers
 
 import (
 	"go_clean/src/domain"
 	"go_clean/src/interfaces/database"
-	"go_clean/src/usecases"
+	usecase "go_clean/src/usecases"
+
+	"github.com/labstack/echo"
 )
 
 type UserController struct {
-	Interactor usecases.UserInteractor
+	Interactor usecase.UserInteractor
 }
 
-func NewUserController(Sqlhandler database.SqlHandler) *UserController {
+func NewUserController(sqlHandler database.SqlHandler) *UserController {
 	return &UserController{
-		Interactor: usecases.UserInteractor{
-			UserRepository: &usecases.UserRepository{
-				SqlHandler: Sqlhandler,
+		Interactor: usecase.UserInteractor{
+			UserRepository: &database.UserRepository{
+				SqlHandler: sqlHandler,
 			},
 		},
 	}
 }
 
-func (obj *UserController) GetUser() []domain.User {
-	res := obj.Interactor.
+func (controller *UserController) Create(c echo.Context) {
+	u := domain.User{}
+	c.Bind(&u)
+	controller.Interactor.Add(u)
+	createdUsers := controller.Interactor.GetInfo()
+	c.JSON(201, createdUsers)
+	return
+}
+
+func (controller *UserController) GetUser() []domain.User {
+	res := controller.Interactor.GetInfo()
 	return res
 }
 
-func (obj *UserController) Create(u *domain.User) {
-	obj.Create(u)
-}
-
-func (obj *UserController) DeleteUser() {
-	obj.Interactor.UserRepository.Delete()
+func (controller *UserController) Delete(id string) {
+	controller.Interactor.Delete(id)
 }
