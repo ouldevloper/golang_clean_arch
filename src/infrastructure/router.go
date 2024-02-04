@@ -1,6 +1,7 @@
 package infrastructure
 
 import (
+	"go_clean/src/interfaces/api"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -8,7 +9,7 @@ import (
 
 func Init() {
 	r := gin.Default()
-	//controller := api.NewUserController(NewSqlHandler())
+	controller := api.NewUserController(NewSqlHandler())
 	r.GET("/", func(cntx *gin.Context) {
 		cntx.JSON(200, gin.H{
 			"message": "desfsd",

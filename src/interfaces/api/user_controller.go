@@ -1,11 +1,12 @@
-package controllers
+package api
 
 import (
 	"go_clean/src/domain"
 	"go_clean/src/interfaces/database"
+
 	usecase "go_clean/src/usecases"
 
-	"github.com/labstack/echo"
+	"github.com/gin-gonic/gin"
 )
 
 type UserController struct {
@@ -22,7 +23,7 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
 	}
 }
 
-func (controller *UserController) Create(c echo.Context) {
+func (controller *UserController) Create(c *gin.Context) {
 	u := domain.User{}
 	c.Bind(&u)
 	controller.Interactor.Add(u)

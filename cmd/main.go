@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"go_clean/src/infrastructure"
+)
 
 func main() {
-	fmt.Println("Hello world!")
+	infrastructure.Init()
 }

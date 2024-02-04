@@ -2,8 +2,20 @@ package database
 
 import "go_clean/src/domain"
 
-type UserRepository interface {
-	Store(*domain.User)
-	Select() []domain.User
-	Delete(int)
+type UserRepository struct {
+	SqlHandler
+}
+
+func (db *UserRepository) Store(u domain.User) {
+	db.Create(&u)
+}
+
+func (db *UserRepository) Select() []domain.User {
+	user := []domain.User{}
+	db.FindAll(&user)
+	return user
+}
+func (db *UserRepository) Delete(id string) {
+	user := []domain.User{}
+	db.DeleteById(&user, id)
 }
