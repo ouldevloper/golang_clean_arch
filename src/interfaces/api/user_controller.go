@@ -3,6 +3,7 @@ package api
 import (
 	"go_clean/src/domain"
 	"go_clean/src/interfaces/database"
+	"go_clean/src/utils"
 
 	usecase "go_clean/src/usecases"
 
@@ -25,7 +26,7 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
 
 func (controller *UserController) Create(c *gin.Context) {
 	u := domain.User{}
-	c.Bind(&u)
+	utils.ParseBody(c.Request, &u)
 	controller.Interactor.Add(u)
 	createdUsers := controller.Interactor.GetInfo()
 	c.JSON(201, createdUsers)
@@ -33,6 +34,11 @@ func (controller *UserController) Create(c *gin.Context) {
 }
 
 func (controller *UserController) GetUser() []domain.User {
+	res := controller.Interactor.GetInfo()
+	return res
+}
+
+func (controller *UserController) GetUserByID() []domain.User {
 	res := controller.Interactor.GetInfo()
 	return res
 }
